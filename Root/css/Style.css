@@ -1,0 +1,41 @@
+#header {
+    background-color: rgb(67, 196, 234);
+    color:white;
+    text-align:right;
+    padding: 30px;
+}
+#nav {
+    line-height:30px;
+    background-color: #FDFDFD;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    text-align:center;
+    /* width:350px; */
+    /* float:left; */
+    /* padding:10px; */	 	 
+}
+#footer {
+    background-color:rgb(67, 196, 234);
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:15px;	 	 
+}
+#image1{
+	line-height:30px;
+	height:152px;
+    width:299px;
+    float:right;
+    padding:5px;
+}
+#image2{
+	line-height:30px;
+	height:75px;
+   // width:150px;
+    float:left;
+    padding:5px;
+}

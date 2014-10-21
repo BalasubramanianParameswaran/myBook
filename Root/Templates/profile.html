@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/Style.css" />
+	<script type="text/javascript" src="../JS/ProfileStore.js"></script>
+</head>
+
+<body>
+<img id="image2" src="images/my book logo-2.png" alt="Mountain View">
+<div id="header">
+<h1>City Gallery</h1>
+</div>
+<br>
+<br>
+<br>
+<div id="nav">
+<a href="feed.html">Feed</a><br>
+<a href="profile.html">Profile</a><br>
+</div>
+<div id = "image1">
+	<img id="previewField" src="../images/no-image.png" alt="your image" style="width:152px;height:229px"/>
+</div>
+
+<div id="section">
+<div>
+	<input type = "text" id="name" placeholder = "Name"/>
+</div>
+<br>
+<div>
+	<input type = "text" id="age" placeholder = "Age"/>
+</div>
+<br>
+<div>
+	<input type = "text" id="phone" placeholder = "Phone"/>
+</div>
+<br>
+<div>
+	<input type = "text" id="email" placeholder = "Email"/>
+</div>
+<br>
+<div>
+	<textarea rows="8" cols="22"></textarea>
+</div>
+<br>
+<div>
+	<input type = "text" id="imageName" placeholder = "Profile image" readonly="readonly" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="file" id="imageFile" name="imageFile" accept="image/*" onchange="preview(this)"/>
+</div>
+<br>
+<div>
+	<input type = "button" value = "Save" onclick = "save()"/>
+</div>
+</div>
+
+<br>
+<br>
+<br>
+<div id="footer">
+Talent Improving exercise, OFS
+</div>
+
+</body>
+</html>
