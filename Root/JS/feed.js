@@ -1,32 +1,125 @@
-var Feed = {id : 0,type : ''};
-var urlFeed = Object.create(Feed);
-var textFeed = Object.create(Feed);
-Feed.prototype ={
-	function createFeed(Feed) {
-		var postValue = document.getElementById("postValue");
-		var msg = document.getElementById("msg");
-		if(msg.value != ''){
-			postValue.innerHTML = msg.value;
-			var btn = document.createElement("div");
-			var t = document.createTextNode(msg.value);
-			btn.appendChild(t);
-			document.body.appendChild(btn);
-		} else {
-		postValue.innerHTML = "Value not assign";
-		}
+function Feed(id,type){
+	this.id=id;;
+	this.type=type;	
+}
+Feed.prototype.getID = function(){
+	return this.id;
+};
+Feed.prototype.getType = function(){
+	return this.type;
+};
+
+function TextFeed(id,text){
+	this.id = id;
+	this.text = text;
+	this.time= new Date();
+}
+TextFeed.prototype = Object.create(Feed.prototype);
+TextFeed.prototype.getFeed = function(){
+	return this.text;
+}
+function URLFeed(id,url){
+	this.url=url;
+	this.time= new Date();
+}
+URLFeed.prototype = Object.create(Feed.prototype);
+URLFeed.prototype.getFeed = function(){
+	return this.url;
+}
+var feedx = [];
+function createFeeds(id){	
+	var ele = document.getElementById(id).value;
+	document.getElementById(id).value = "";	
+	var feed;
+	if(ele.length > 4 && (ele.substring(0,4).toUpperCase() == "HTTP" || ele.substring(0,3).toUpperCase() == "WWW")){
+		feed = new URLFeed(1,ele);
+	} else {
+		feed = new TextFeed(1,ele);
 	}
-	function deleteFeed(feedId) {
-		var remove;
-		var typeName;
-		for(key in Feed) {
-			if(Feed[key].id == feedId) {
-				typeName = Feed[id].type;
-				remove = function() {
-						Feed.splice(feedID, 1);
-						return typeName+" have been removed from the list";
-				};
-			}
+	createFeedsService(feed);
+}
+
+function deleteFeeds(id){	
+	deleteFeedsService(id);
+}
+var createFeedsService = service("CreateFeed");
+var deleteFeedsService = service("DeleteFeed");
+function User(userName){
+	this.feeds = [];
+}
+
+function service(type){
+	var currentUser=new User("bala");
+	var feeds = currentUser.feeds;
+	var ret;
+	
+	if(type === "CreateFeed"){	
+		ret =  function(feed){
+			feeds.push(feed);			
+			reloadFeeds(feeds);
+		};
+	} else if (type === "DeleteFeed"){
+			ret =  function(id){
+			feeds=feedx;
+			console.log(feeds);
+			feeds.splice(id,1);	
+			console.log(feeds);
+			var myNode = document.getElementById("loadFeeds");
+			while (myNode.firstChild) {
+				myNode.removeChild(myNode.firstChild);
+			}			
+			reloadFeeds(feeds);
+		};
+	} 
+	return ret;
+}
+/**********************************************************/
+
+function reloadFeeds(feedsArray){		
+	var element = document.getElementById("loadFeeds");	
+	while (element.firstChild) {
+		element.removeChild(element.firstChild);
+	}	
+	var feeds = feedsArray;	
+	feedx=feeds;
+	var div = document.createElement("div");	
+	var emptyRow,emptyColumn,userFeed,userFeedText,userFeedDelete,userFeedDate,img,node,input,node1,index;
+		for(var i=0,l=feeds.length;i<l;i++){				
+		emptyRow = getElement("div","emptyRow");
+		emptyColumn = getElement("div","emptyColumn");
+		userFeed = getElement("div","userFeed");
+		userFeedText = getElement("div","UserFeedText");
+		userFeedDelete = getElement("div","UserFeedDelete");
+		userFeedDate = getElement("div","UserFeedDate");	
+		node = document.createElement("a");
+		if(feeds[i] instanceof URLFeed){
+			node.setAttribute("href", feeds[i].getFeed());		
 		}
-		alert(remove);
+		node.innerHTML=feeds[i].getFeed();
+		userFeedText.appendChild(node);
+		input = document.createElement("input");		
+		input.setAttribute("type", "button");
+		input.setAttribute("value", "X");
+		input.setAttribute("onclick", ("deleteFeeds("+i+")"));
+		userFeedDelete.appendChild(input);
+		node1 = document.createTextNode(getDateString(feeds[i].time));
+		userFeedDate.appendChild(node1);
+		userFeed.appendChild(userFeedText);
+		userFeed.appendChild(userFeedDelete);
+		userFeed.appendChild(userFeedDate);
+		div.appendChild(emptyRow);
+		div.appendChild(emptyColumn);
+		div.appendChild(userFeed);
 	}
+	element.appendChild(div);
+}
+
+function getElement(type,styleClass){
+	var element = document.createElement(type);
+	element.setAttribute("class",styleClass);
+	return element;
+}
+
+function getDateString(date){
+	return (date.getMonth()+1) +"/"+ (date.getDate()) + "/"+(date.getFullYear()) + " " + (date.getHours() > 12 ? date.getHours() - 12 : date.getHours() )+":"+(date.getMinutes()) + " " + (date.getHours() > 12 ? "PM" : "AM" );
 }

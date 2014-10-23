@@ -1,10 +1,11 @@
 
-	var nameFlag=true;
-	var ageFlag=true;
-	var phoneFlag=true;
-	var emailFlag=true;
-	var addressFlag=true;
-	var imageFlag=true;
+var nameFlag=true;
+var ageFlag=true;
+var phoneFlag=true;
+var emailFlag=true;
+var addressFlag=true;
+var imageFlag=true;
+var profileToSave = {id:0,name:"",age:"",phone:"",email:"",address:"",image:""};
 	
 function save()
 {
@@ -14,7 +15,6 @@ function save()
 	var email = document.getElementById("email").value;
 	var address = document.getElementById("address").value;
 	var imgPath = document.getElementById("imageName").value;
-	var profile = {id:0,name:"",age:"",phone:"",email:"",address:"",image:""};
 	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	if(name == "" || name == null) {
 		alert("Please Enter Your Name");
@@ -46,17 +46,17 @@ function save()
 	if(nameFlag && ageFlag && phoneFlag && emailFlag && addressFlag && imageFlag){
 		profileToSave.id=1;
 		profileToSave.name=name;
-		profile.age=age;
-		profile.phone=phone;
-		profile.email=email;
-		profile.address=address;
-		profile.image=globalPic;
-		saveProfile(profile);
+		profileToSave.age=age;
+		profileToSave.phone=phone;
+		profileToSave.email=email;
+		profileToSave.address=address;
+		profileToSave.image=globalPic;
+		saveProfile(profileToSave);
 	}
 	return false;
 }
-function saveProfile(profile){
-	localStorage.setItem(profile);
+function saveProfile(profileToSave){
+	localStorage.setItem(profileToSave);
 	alert("Your Profile Saved Successfully...");
 }
 
