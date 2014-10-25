@@ -95,15 +95,18 @@ function reloadFeeds(feedsArray){
 		if(feeds[i] instanceof URLFeed){
 			node.setAttribute("href", feeds[i].getFeed());		
 		}
+		node.setAttribute("id", "txt");
 		node.innerHTML=feeds[i].getFeed();
 		userFeedText.appendChild(node);
 		input = document.createElement("input");		
 		input.setAttribute("type", "button");
-		input.setAttribute("value", "X");
+		//input.setAttribute("value", "X");
 		input.setAttribute("onclick", ("deleteFeeds("+i+")"));
+		input.setAttribute("id", "but");
 		userFeedDelete.appendChild(input);
 		node1 = document.createTextNode(getDateString(feeds[i].time));
 		userFeedDate.appendChild(node1);
+		userFeed.setAttribute("id", "feedDiv");
 		userFeed.appendChild(userFeedText);
 		userFeed.appendChild(userFeedDelete);
 		userFeed.appendChild(userFeedDate);
