@@ -25,7 +25,7 @@ function validateForm() {
 		document.getElementById("password").value = "";
 		document.getElementById("password").focus() ;
         return false;
-    } else if (username == "bala" && password == "bala") {
+    } else if (username == "admin" && password == "admin123") {
         return true;
     } else if (username.length > 8) {
         alert("Enter the valid Username");
