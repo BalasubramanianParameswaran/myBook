@@ -32,6 +32,9 @@ function createFeeds(id){
 	document.getElementById(id).value = "";	
 	var feed;
 	if(ele.length > 4 && (ele.substring(0,4).toUpperCase() == "HTTP" || ele.substring(0,3).toUpperCase() == "WWW")){
+		if(ele.substring(0,3).toUpperCase() == "WWW") {
+			ele ="http://"+ele;
+		}
 		feed = new URLFeed(1,ele);
 	} else {
 		feed = new TextFeed(1,ele);
