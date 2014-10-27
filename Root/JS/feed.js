@@ -83,37 +83,44 @@ function reloadFeeds(feedsArray){
 	var feeds = feedsArray;	
 	feedx=feeds;
 	var div = document.createElement("div");	
-	var emptyRow,emptyColumn,userFeed,userFeedText,userFeedDelete,userFeedDate,img,node,input,node1,index;
+	var emptyRow,emptyColumn,userFeed,userFeedText,userFeedDelete,userFeedDate,img,node,input,node1,index,userIcon;
 		for(var i=0,l=feeds.length;i<l;i++){				
-		emptyRow = getElement("div","emptyRow");
-		emptyColumn = getElement("div","emptyColumn");
-		userFeed = getElement("div","userFeed");
-		userFeedText = getElement("div","UserFeedText");
-		userFeedDelete = getElement("div","UserFeedDelete");
-		userFeedDate = getElement("div","UserFeedDate");	
-		node = document.createElement("a");
-		if(feeds[i] instanceof URLFeed){
-			node.setAttribute("href", feeds[i].getFeed());		
+			emptyRow = getElement("div","emptyRow");
+			emptyColumn = getElement("div","emptyColumn");
+			userFeed = getElement("div","userFeed");
+			userFeedText = getElement("div","UserFeedText");
+			userFeedDelete = getElement("div","UserFeedDelete");
+			userFeedDate = getElement("div","UserFeedDate");
+			userIcon = getElement("div","userIcon");
+			img = document.createElement("img");		
+			img.setAttribute("src", "../images/dp.png");
+			img.setAttribute("height", "40px");
+			img.setAttribute("width", "40px");
+			userIcon.appendChild(img);
+			userIcon.setAttribute("id", "img1");
+			node = document.createElement("a");
+			if(feeds[i] instanceof URLFeed){
+				node.setAttribute("href", feeds[i].getFeed());		
+			}
+			node.setAttribute("id", "txt");
+			node.innerHTML=feeds[i].getFeed();
+			userFeedText.appendChild(node);
+			input = document.createElement("input");		
+			input.setAttribute("type", "button");
+			input.setAttribute("onclick", ("deleteFeeds("+i+")"));
+			input.setAttribute("id", "but");
+			userFeedDelete.appendChild(input);
+			node1 = document.createTextNode(getDateString(feeds[i].time));
+			userFeedDate.appendChild(node1);
+			userFeed.setAttribute("id", "feedDiv");
+			userFeed.appendChild(userIcon);
+			userFeed.appendChild(userFeedText);
+			userFeed.appendChild(userFeedDelete);
+			userFeed.appendChild(userFeedDate);
+			div.appendChild(emptyRow);
+			div.appendChild(emptyColumn);
+			div.appendChild(userFeed);
 		}
-		node.setAttribute("id", "txt");
-		node.innerHTML=feeds[i].getFeed();
-		userFeedText.appendChild(node);
-		input = document.createElement("input");		
-		input.setAttribute("type", "button");
-		//input.setAttribute("value", "X");
-		input.setAttribute("onclick", ("deleteFeeds("+i+")"));
-		input.setAttribute("id", "but");
-		userFeedDelete.appendChild(input);
-		node1 = document.createTextNode(getDateString(feeds[i].time));
-		userFeedDate.appendChild(node1);
-		userFeed.setAttribute("id", "feedDiv");
-		userFeed.appendChild(userFeedText);
-		userFeed.appendChild(userFeedDelete);
-		userFeed.appendChild(userFeedDate);
-		div.appendChild(emptyRow);
-		div.appendChild(emptyColumn);
-		div.appendChild(userFeed);
-	}
 	element.appendChild(div);
 }
 
